@@ -38,6 +38,11 @@ public class Enemy : MonoBehaviour
     /// </summary>  
     public void Update()
     {
+		var normalZ = new Vector3(0, 0, 1);
+		var EnemyForward = player_.worldMatrix * normalZ;
+		var EnemyViewCos = Mathf.Cos(player_.viewRadian);
+		var EnemyToPlayer = (player_.transform.position - transform.position).normalized;
+		var dot = Vector3.Dot(EnemyForward, EnemyToPlayer);
 
-    }
+	}
 }
