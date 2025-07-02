@@ -43,6 +43,17 @@ public class Enemy : MonoBehaviour
 		var EnemyViewCos = Mathf.Cos(player_.viewRadian);
 		var EnemyToPlayer = (player_.transform.position - transform.position).normalized;
 		var dot = Vector3.Dot(EnemyForward, EnemyToPlayer);
+		if (EnemyViewCos <= dot)
+		{
+			Debug.Log("A");
+			var toTarget = (player_.transform.position - transform.position).normalized;
+			var foward = transform.forward;
+			if (0.999f < dot) { return; }
+			var radian = Mathf.Acos(dot);
+			var cross = Vector3.Cross(foward,toTarget);
+			radian *= (cross.y / Mathf.Abs(cross.y));
+			transform.rotation *= Quaternion.Euler(0, Mathf.Rad2Deg * radian, 0);
+		}
 
 	}
 }
